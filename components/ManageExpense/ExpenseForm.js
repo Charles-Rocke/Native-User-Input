@@ -11,8 +11,8 @@ function ExpenseForm({ onCancel, onSubmit, submitButtonLabel }) {
   });
 
   // second argument/parameter (in this case its 'enteredValue') is passed in automatically by react native
-  function inputChangedHandler(inputIdentifier, enteredAmount) {
-    setInputValue((curInputValues) => {
+  function inputChangedHandler(inputIdentifier, enteredValue) {
+    setInputValues((curInputValues) => {
       return {
         ...curInputValues,
         [inputIdentifier]: enteredValue, // setting the value of an object key ( this is === amount["value/inputIdentifier"] in python)
@@ -20,7 +20,15 @@ function ExpenseForm({ onCancel, onSubmit, submitButtonLabel }) {
     });
   }
 
-  function submitHandler() {}
+  function submitHandler() {
+    const expenseData = {
+      amount: +inputValues.amount,
+      date: new Date(inputValues.date),
+      description: inputValues.description,
+    };
+
+    onSubmit(expenseData);
+  }
 
   return (
     <View style={styles.form}>
@@ -37,7 +45,7 @@ function ExpenseForm({ onCancel, onSubmit, submitButtonLabel }) {
         />
         <Input
           style={styles.rowInput}
-          label="Date"
+          label="Date (YYYY-MM-DD)"
           textInputConfig={{
             placeholder: "YYYY-MM-DD",
             maxLength: 10,
