@@ -2,12 +2,13 @@ import { StyleSheet, Text, View } from "react-native";
 import Input from "./Input";
 import { useState } from "react";
 import Button from "../ui/Button";
+import { getFormatDate } from "../../util/date";
 
-function ExpenseForm({ onCancel, onSubmit, submitButtonLabel }) {
+function ExpenseForm({ onCancel, onSubmit, submitButtonLabel, defaultValues }) {
   const [inputValues, setInputValues] = useState({
-    amount: "",
-    date: "",
-    description: "",
+    amount: defaultValues ? defaultValues.amount.toString() : "",
+    date: defaultValues ? getFormatDate(defaultValues.date) : "",
+    description: defaultValues ? defaultValues.description : "",
   });
 
   // second argument/parameter (in this case its 'enteredValue') is passed in automatically by react native
